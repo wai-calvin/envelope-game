@@ -1,6 +1,3 @@
-const webpack = require('webpack');
-const middleware = require('webpack-dev-middleware');
-const hotMiddleware = require('webpack-hot-middleware');
 const express = require('express');
 const path = require('path');
 const cookiesMiddleware = require('universal-cookie-express');
@@ -24,6 +21,9 @@ app.use(cookiesMiddleware())
     const routes = require('./routes');
     app.use(routes);
   } else {
+  const webpack = require('webpack');
+  const middleware = require('webpack-dev-middleware');
+  const hotMiddleware = require('webpack-hot-middleware');
   const webpackConfig = require('./webpack.config');
   const compiler = webpack(webpackConfig);
   

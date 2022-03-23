@@ -3,7 +3,7 @@ services:
   node:
     build: .
     environment: 
-      - NODE_ENV=development
+      - NODE_ENV=production
       - DB_HOST=db
       - DB_USERNAME=root
       - DB_PASSWORD=root
@@ -14,7 +14,7 @@ services:
     restart: always
     command: "npm start"
   db:
-    image: mysql:8
+    image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=envelope-game

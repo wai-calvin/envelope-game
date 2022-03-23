@@ -31,7 +31,7 @@ COPY --from=build /envelope-game/db.js .
 COPY --from=build /envelope-game/lib .
 COPY --from=build /envelope-game/routes .
 
-ENV NODE_ENV=production
+ENV NODE_ENV "production"
 RUN yarn install --production
 
 ENTRYPOINT [ "node", "server.js" ]
