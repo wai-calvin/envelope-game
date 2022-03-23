@@ -1,4 +1,4 @@
-FROM node:16-alpine AS test
+FROM node:16-alpine AS build
 
 WORKDIR /envelope-game
 
@@ -23,7 +23,15 @@ WORKDIR /envelope-game
 
 LABEL org.opencontainers.image.source=https://github.com/liatrio/envelope-game
 
-COPY --from=test /envelope-game .
+COPY --from=build /envelope-game/dist .
+COPY --from=build /envelope-game/package.json .
+COPY --from=build /envelope-game/yarn.lock .
+COPY --from=build /envelope-game/server.js .
+COPY --from=build /envelope-game/db.js .
+COPY --from=build /envelope-game/lib .
+COPY --from=build /envelope-game/routes .
+
+ENV NODE_ENV=production
 RUN yarn install --production
 
 ENTRYPOINT [ "node", "server.js" ]

@@ -18,14 +18,15 @@ app.use(cookiesMiddleware())
     }
     next();
   });
-const webpackConfig = require('./webpack.config');
-const compiler = webpack(webpackConfig);
-
-if (webpackConfig.mode === 'production') {
-  app.use(express.static(path.join(__dirname, 'dist')));
-  const routes = require('./routes');
-  app.use(routes);
-} else {
+  
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'dist')));
+    const routes = require('./routes');
+    app.use(routes);
+  } else {
+  const webpackConfig = require('./webpack.config');
+  const compiler = webpack(webpackConfig);
+  
   app.use(middleware(compiler));
   app.use(hotMiddleware(compiler));
 
